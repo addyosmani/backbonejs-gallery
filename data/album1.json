@@ -57,19 +57,16 @@
 				 ]
   },
   {
-    "title": "Keenly Developed Moral Bankruptcy",
-    "artist": "Stealth Monkey Virus",
+    "title": "Test Folder 1",
+    "artist": "no images in this one",
     "image": "images/testfolder.jpg",
     "large_image": "images/testfolder.jpg",
     "price": 13.99,
-    "url": "http://www.amazon.com/",
-	"subalbum": [ {}
-	
-	]
+    "url": "http://www.amazon.com/"
   },
   {
-    "title": "My Mistress's Sparrow is Dead",
-    "artist": "Sums of Mongolia",
+    "title": "Test Folder 2",
+    "artist": "or this one either",
     "image": "images/testfolder.jpg",
     "large_image": "images/testfolder.jpg",
     "price": 13.99,

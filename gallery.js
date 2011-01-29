@@ -17,14 +17,12 @@ var AlbumItem = Backbone.Model.extend({
     },
     
     update: function(amount) {
-        //this.set({'quantity': this.get('quantity') + amount});
     }
 });
 
-//new
+
 var SubalbumItem = Backbone.Model.extend({
     update: function(amount) {
-        //this.set({'quantity': this.get('quantity') + amount});
     }
 });
 
@@ -49,14 +47,6 @@ var SubalbumView = Backbone.View.extend({
 
     render: function() {
     
-    
-	/*
-        var sum = this.model.reduce(function(m, n) { return m + n.get('quantity'); }, 0);
-        this.el
-            .find('.album-items').text(sum).end()
-            .animate({paddingTop: '30px'})
-            .animate({paddingTop: '10px'});
-			*/
     }
 });
 
@@ -69,15 +59,6 @@ var AlbumView = Backbone.View.extend({
     },
 
     render: function() {
-    
-    
-	/*
-        var sum = this.model.reduce(function(m, n) { return m + n.get('quantity'); }, 0);
-        this.el
-            .find('.album-items').text(sum).end()
-            .animate({paddingTop: '30px'})
-            .animate({paddingTop: '10px'});
-			*/
     }
 });
 
@@ -158,12 +139,8 @@ var SubalbumView = Backbone.View.extend({
 
 
 
-//this is a fake version of photoview which we're trying to hack
-//to view subalbums instead. .subalbum needs to be the updated
-//data source.
 var SubindexView = Backbone.View.extend({
     el: $('#main'),
-    //itemTemplate: $("#itemTmpl").template(),
 	itemTemplate: $("#subindexTmpl").template(),
 
 
@@ -205,17 +182,6 @@ var SubindexView = Backbone.View.extend({
 });
 
 
-/*
-Backbone.Controller = function(options){
-  options || (options = {});
-  if(options.routes) this.routes = options.routes;
-  this._bindRoutes();
-  this.initialize(options);
-  
-  alert(options);
-
-};
-*/
 
 
 var Workspace = Backbone.Controller.extend({
@@ -244,15 +210,12 @@ var Workspace = Backbone.Controller.extend({
                 dataType: 'json',
                 data: {},
                 success: function(data) {
-				    ////
 				    ws._data = data;
-					///////
                     ws._album = new Album();
                     new AlbumView({model: ws._album});
 					
                     ws._photos = new PhotoCollection(ws._data);
 
-                    
                     ws._index = new IndexView({model: ws._photos}); 
                     
                     Backbone.history.loadUrl();
@@ -279,10 +242,9 @@ var Workspace = Backbone.Controller.extend({
 		var properindex = id.replace('c','');	
 		
 		//if(this._subphotos == undefined)
-		{	
+	
 		this._subphotos = new PhotoCollection(this._data[properindex].subalbum);
-		}	
-		
+
 		this._subalbums = new SubalbumView({model: this._subphotos});
 		this._subalbums.render();
 		
@@ -292,81 +254,14 @@ var Workspace = Backbone.Controller.extend({
     photo: function(id, num){
 	
 	
-	//alert('show me subalbum ' + id  +' and photo number ' + num + ' in there ');
-	
-	
+
 	 var properindex = id.replace('c','');
-	  var cid = id;  //reads any first level thing fine..
+	 var cid = id;  
 	  
 	  	  this._subphotos.getByCid(cid)._view = new PhotoView({model: this._subphotos.getByCid(cid), album: this._album});
       this._subphotos.getByCid(cid)._view.render();
       
-	  
-	  /*
-	  this._photos.getByCid(cid)._view = new PhotoView({model: this._photos.getByCid(cid), album: this._album});
-      this._photos.getByCid(cid)._view.render();
-      */
-      
- 
-      
-	/*
-	  prolly need to a) get the second ID ie ID of the subalbum, then need to
-	  append to hash and load as per subindex rather than indiv off of the photos
-	  tree.
-	  
-	  so...subid and actual imageid...
-	  
-	  NOT the auto id...
-	  
-	  
-	*/
-	
-	
-
-	
-	/*
-	    var subalbumid = 0;
-        var imageid    = 1;		
-		var subphotos = new PhotoCollection(this._data[subalbumid].subalbum);
-		this._subalbums = new SubalbumView({model: subphotos});
-		this._subalbums.render();
-		
-		*/
-		
-
-
-		
-		/*
-		
-	 var properindex = id.replace('c','');
-	  var cid = 'c1';
-	  this._photos.getByCid(cid)._view = new PhotoView({model: this._photos.getByCid(cid), album: this._album});
-      this._photos.getByCid(cid)._view.render();
-      */
-		
-		/*
-		var cid = 'c' + imageid;
-		
-	  subphotos.getByCid(cid)._view = new PhotoView({model: subphotos.getByCid(cid), album: this._album});
-      subphotos.getByCid(cid)._view.render();
-	  */
-
-	/*
-	  var properindex = id.replace('c','');
-	  var cid = 'c1';
-	  this._photos.getByCid(cid)._view = new PhotoView({model: this._photos.getByCid(cid), album: this._album});
-      this._photos.getByCid(cid)._view.render();
-	  */
-                               
-/*
-        if (_.isUndefined(this._photos.getByCid(id)._view)) 
-		{
-            this._photos.getByCid(id)._view = new PhotoView({model: this._photos.getByCid(id), album: this._album});
-        }
-		
-        this._photos.getByCid(id)._view.render();
-		*/
-    }
+	    }
 });
 
 workspace = new Workspace();
