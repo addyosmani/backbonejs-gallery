@@ -244,7 +244,6 @@ var Workspace = Backbone.Controller.extend({
 		//if(this._subphotos == undefined)
 	
 		this._subphotos = new PhotoCollection(this._data[properindex].subalbum);
-
 		this._subalbums = new SubalbumView({model: this._subphotos});
 		this._subalbums.render();
 		
@@ -258,8 +257,8 @@ var Workspace = Backbone.Controller.extend({
 	 var properindex = id.replace('c','');
 	 var cid = id;  
 	  
-	  	  this._subphotos.getByCid(cid)._view = new PhotoView({model: this._subphotos.getByCid(cid), album: this._album});
-      this._subphotos.getByCid(cid)._view.render();
+	 this._subphotos.getByCid(cid)._view = new PhotoView({model: this._subphotos.getByCid(cid), album: this._album});
+     this._subphotos.getByCid(cid)._view.render();
       
 	    }
 });

@@ -1,4 +1,8 @@
 
-## Backbone.js Multi-level Image Gallery
+## Backbone.js & Underscore Multi-level Client-Side Image Gallery Powered by JSON
 
 Inspired by the store example by Elf M. Sternberg I decided to try taking this concept a few levels further by creating a multi-level Backbone based image gallery which supports album covers, albums and sub-albums. With three views this project aims to provide a lightweight, clean solution that can be used for personal projects easily [If I can ever get it finished!].
+
+## Current Issues
+
+Second level (subalbum) bookmarking is supported but third level (photo) is not as yet. The reason for this is I'm currently accessing a pre-cached collection for the third level and need to figure out a tidy way of creating the collection if someone accesses it directly.
