@@ -1,0 +1,4 @@
+
+## Backbone.js Multi-level Image Gallery
+
+Inspired by the store example by Elf M. Sternberg I decided to try taking this concept a few levels further by creating a multi-level Backbone based image gallery which supports album covers, albums and sub-albums. With three views this project aims to provide a lightweight, clean solution that can be used for personal projects easily [If I can ever get it finished!].
