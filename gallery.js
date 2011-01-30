@@ -215,10 +215,10 @@ var Workspace = Backbone.Controller.extend({
 	
 	subindex:function(id){
 		
-	  var properindex = id.replace('c','');	
-	  this._currentsub = properindex;
+	  	var properindex = id.replace('c','');	
+	  	this._currentsub = properindex;
 
-	
+        /*cache these and the cid problem should go.*/
 		this._subphotos = new PhotoCollection(this._data[properindex].subalbum);
 		this._subalbums = new SubalbumView({model: this._subphotos});
 		this._subalbums.render();
