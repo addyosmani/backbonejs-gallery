@@ -5,4 +5,4 @@ Inspired by the store example by Elf M. Sternberg I decided to try taking this c
 
 ## Current Issues
 
-Second level (subalbum) bookmarking is supported but third level (photo) is not as yet. The reason for this is I'm currently accessing a pre-cached collection for the third level and need to figure out a tidy way of creating the collection if someone accesses it directly.
+Bookmarking is now supported on all depths *however* there is currently an issue whereby photos are being assigned new cid values when viewed multiple times, causing bookmarking to break. This is an issue I'll be working to fix.

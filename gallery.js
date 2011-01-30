@@ -35,20 +35,7 @@ var Album = Backbone.Collection.extend({
 });
 
 
-//this can be removed...
-var SubalbumView = Backbone.View.extend({
-    el: $('.album-info'),
 
-    initialize: function() {
-        this.model.bind('change', _.bind(this.render, this));
-        
-        
-    },
-
-    render: function() {
-    
-    }
-});
 
 //this can be removed...
 var AlbumView = Backbone.View.extend({
@@ -192,11 +179,13 @@ var Workspace = Backbone.Controller.extend({
 	_subphotos:null,
 	_data:null,
 	_photosview:null,
+	_currentsub:null,
 
     routes: {
         "": "index",
         "subalbum/:id": "subindex",
-        "subalbum/:id/pho/:num": "photo"
+        "imageid/:id/subalbum/": "directphoto",
+        "imageid/:id/subalbum/:num": "hashphoto"
     },
 
     initialize: function(options) {
@@ -232,16 +221,9 @@ var Workspace = Backbone.Controller.extend({
 	
 	subindex:function(id){
 		
-		
-		/*
-		 a lot of improvements need to be made here wrt caching
-		 of variables and collections across all functions.
-		
-		*/
-		
-		var properindex = id.replace('c','');	
-		
-		//if(this._subphotos == undefined)
+	  var properindex = id.replace('c','');	
+	  this._currentsub = properindex;
+
 	
 		this._subphotos = new PhotoCollection(this._data[properindex].subalbum);
 		this._subalbums = new SubalbumView({model: this._subphotos});
@@ -249,18 +231,36 @@ var Workspace = Backbone.Controller.extend({
 		
 		
 	},
-
-    photo: function(id, num){
 	
 	
+	/* Routing for browse paths where subalbums cached*/
+	directphoto: function(id){
+	
+	if(this._currentsub !== null){
+	window.location.hash +=  this._currentsub;
+	}
+	 
+	 this._subphotos.getByCid(id)._view = new PhotoView({model: this._subphotos.getByCid(id), album: this._album});
+     this._subphotos.getByCid(id)._view.render();
 
-	 var properindex = id.replace('c','');
-	 var cid = id;  
-	  
-	 this._subphotos.getByCid(cid)._view = new PhotoView({model: this._subphotos.getByCid(cid), album: this._album});
-     this._subphotos.getByCid(cid)._view.render();
+
+	},
+
+    /* Routing for bookmarked paths where subalbums non-cached - try merging into above*/
+    hashphoto: function(id, num){
+
+    this._currentsub = num;
+	 
+	 if(this._subphotos == undefined){
+	 this._subphotos = new PhotoCollection(this._data[this._currentsub].subalbum);
+	 }
+
+	 this._subphotos.getByCid(id)._view = new PhotoView({model: this._subphotos.getByCid(id), album: this._album});
+     this._subphotos.getByCid(id)._view.render();
       
-	    }
+	   
+	    
+	  }
 });
 
 workspace = new Workspace();
