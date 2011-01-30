@@ -249,7 +249,7 @@ var Workspace = Backbone.Controller.extend({
 	
 	/* Routing for browse paths where subalbums cached*/
 	directphoto: function(id){
-	alert('direct');
+	//alert('direct');
 	
 	if(this._currentsub !== null){
 	window.location.hash +=  this._currentsub;
@@ -260,8 +260,10 @@ var Workspace = Backbone.Controller.extend({
      this._subphotos.getByCid(id)._view.render();
      */
      
+     /*
       this._subphotos.at(id)._view = new PhotoView({model: this._subphotos.at(id), album: this._album});
      this._subphotos.at(id)._view.render();
+     */
 
 
 /*
@@ -282,7 +284,7 @@ var Workspace = Backbone.Controller.extend({
     hashphoto: function(id, num){
     
     
-alert('indirect');
+//alert('indirect');
 
 	
     this._currentsub = num;
