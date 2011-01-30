@@ -223,23 +223,10 @@ var Workspace = Backbone.Controller.extend({
 	  	var properindex = id.replace('c','');	
 	  	this._currentsub = properindex;
 	  	
-	  
-	  	//
-	  	/*
-	  	if(this._subph[id] == undefined){	  	   
-	  	    this._subph[id] = new PhotoCollection(this._data[properindex].subalbum); 	    
-	  	}else{
-	  	  this._subphotos = this._subph[id];
-	  	}
-	  	
-	  	this._subalbums = new SubalbumView({model: this._subphotos});
-		this._subalbums.render();
-	  	*/
 
         /*cache these and the cid problem should go.*/
         
 		this._subphotos = new PhotoCollection(this._data[properindex].subalbum);
-		//this._subphotos = this._subs[properindex];
 		this._subalbums = new SubalbumView({model: this._subphotos});
 		this._subalbums.render();
 		
@@ -249,33 +236,12 @@ var Workspace = Backbone.Controller.extend({
 	
 	/* Routing for browse paths where subalbums cached*/
 	directphoto: function(id){
-	//alert('direct');
+
 	
 	if(this._currentsub !== null){
 	window.location.hash +=  this._currentsub;
 	}
 	
-	/*
-	 this._subphotos.getByCid(id)._view = new PhotoView({model: this._subphotos.getByCid(id), album: this._album});
-     this._subphotos.getByCid(id)._view.render();
-     */
-     
-     /*
-      this._subphotos.at(id)._view = new PhotoView({model: this._subphotos.at(id), album: this._album});
-     this._subphotos.at(id)._view.render();
-     */
-
-
-/*
-
- alert('imageid ' + id + ' subalbum ' + this._currentsub);
- 
- theres a pure IMAGEID way of solving where we use imageID in the frontend
- ...or...we could do something like...
- using 
- 
- window.console.log(this._subphotos);
-*/
 
      
 	},
@@ -283,36 +249,17 @@ var Workspace = Backbone.Controller.extend({
     /* Routing for bookmarked paths where subalbums non-cached - try merging into above*/
     hashphoto: function(id, num){
     
-    
-//alert('indirect');
 
 	
-    this._currentsub = num;
+     this._currentsub = num;
 	 
 	 if(this._subphotos == undefined){
-	 this._subphotos = new PhotoCollection(this._data[this._currentsub].subalbum);
+	 	this._subphotos = new PhotoCollection(this._data[this._currentsub].subalbum);
 	 }
 	 
-
-
-
-	// this._subphotos.getByCid(id)._view = new PhotoView({model: this._subphotos.getByCid(id), album: this._album});
-     //this._subphotos.getByCid(id)._view.render();
-     
-     
-     /*
-     
-     at  collection.at(index)
-Get a model from a collection, specified by index. Useful if your collection is sorted, and if your collection isn't sorted, at will still retrieve models in insertion order. 
-*/
-     
      this._subphotos.at(id)._view = new PhotoView({model: this._subphotos.at(id), album: this._album});
      this._subphotos.at(id)._view.render();
   
-    /*
-     
-      window.console.log(this._subphotos);
-      */
 
 	    
 	  }
