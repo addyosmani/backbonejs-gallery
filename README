@@ -5,4 +5,4 @@ Inspired by the store example by Elf M. Sternberg I decided to try taking this c
 
 ## Current Issues
 
-Bookmarking is now supported on all depths *however* there is currently an issue whereby photos are being assigned new cid values when viewed multiple times, causing bookmarking to break. This is an issue I'll be working to fix.
+Bookmarking is now supported on all depths *however* there is currently an issue whereby photos are being assigned new cid values when viewed multiple times, causing bookmarking to break. This is an issue I'll be working to fix. Code also needs to be made more DRY with respect to routing.

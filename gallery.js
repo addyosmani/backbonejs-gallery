@@ -21,10 +21,6 @@ var AlbumItem = Backbone.Model.extend({
 });
 
 
-var SubalbumItem = Backbone.Model.extend({
-    update: function(amount) {
-    }
-});
 
 
 var Album = Backbone.Collection.extend({
@@ -36,8 +32,6 @@ var Album = Backbone.Collection.extend({
 
 
 
-
-//this can be removed...
 var AlbumView = Backbone.View.extend({
     el: $('.album-info'),
 
