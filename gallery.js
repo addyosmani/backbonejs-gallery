@@ -142,7 +142,6 @@ var SubindexView = Backbone.View.extend({
             album_item = new AlbumItem({photo: this.model, quantity: 0});
             this.album.add(album_item, {silent: true});
         }
-        //album_item.update(parseInt($('.uqf').val()));
     },
 
     updateOnEnter: function(e) {
@@ -200,12 +199,7 @@ var Workspace = Backbone.Controller.extend({
                     ws._photos = new PhotoCollection(ws._data);
 
                     ws._index = new IndexView({model: ws._photos}); 
-                    
-                    /*
-                    ws._subs[0] = new PhotoCollection(ws._data[0].subalbum);
-                    ws._subs[1] = new PhotoCollection(ws._data[1].subalbum);
-                    */
-                    
+                   
                     Backbone.history.loadUrl();
                 }
             });
