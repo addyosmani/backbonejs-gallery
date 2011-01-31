@@ -62,8 +62,8 @@ var PhotoView = Backbone.View.extend({
         
         /*hack to fix the back-button on photo view*/
         $(document).bind('keypress', function(e) {
-           if(e.keyCode == 37){
-               window.history.go(-2);
+           if(e.keyCode == 8){
+               window.history.go(-1);
            }
         });
     },
@@ -79,7 +79,7 @@ var PhotoView = Backbone.View.extend({
     },
 
     updateOnEnter: function(e) {
-    alert('aa');
+
         if (e.keyCode == 13) {
             return this.update(e);
         }
@@ -116,6 +116,14 @@ var IndexView = Backbone.View.extend({
 var SubalbumView = Backbone.View.extend({
     el: $('#main'),
     indexTemplate: $("#subindexTmpl").template(),
+    
+    initialize: function(options){
+    
+    /*bad hack to prevent internal keypress handling on sub view */
+     $(document).unbind('keypress');
+
+
+    },
 
     render: function() {
         var sg = this;
