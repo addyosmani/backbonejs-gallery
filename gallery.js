@@ -244,8 +244,7 @@ var Workspace = Backbone.Controller.extend({
 
     /* Routing for bookmarked paths where subalbums non-cached - try merging into above*/
     hashphoto: function(id, num){
-    
-
+   
 	
      this._currentsub = num;
 	 

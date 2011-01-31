@@ -1,6 +1,4 @@
-/******************************************************
- *  json gallery                 *
-\*****************************************************/
+
 body {
   font-family: "Lucida Grande", Lucida, Helvetica, Arial, sans-serif;
   background: #FFF;
@@ -65,7 +63,8 @@ img {
   float:left;
 }
 .item-detail .item-info {
-  padding: 100px 10px 0px 10px;
+float:left;
+padding:100px 33px 0;
 }
 
 .subalbum img{
