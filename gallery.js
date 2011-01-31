@@ -2,8 +2,10 @@ var Photo = Backbone.Model.extend({});
 
 var PhotoCollection = Backbone.Collection.extend({
     model: Photo,
+    /*Define what we're sorting based on across all albums - pid is the sort id*/
+    
     comparator: function(item) {
-        return item.get('title');
+        return item.get('pid');
     }
 });
 

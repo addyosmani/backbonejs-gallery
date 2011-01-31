@@ -6,8 +6,18 @@
     "image": "images/1.jpg",
     "large_image": "images/1.jpg",
     "price": 13.98,
+    "pid" : 0,
     "url": "http://www.amazon.com/Bitte-Orca-Dirty-Projectors/dp/B0026T4RTI/ref=pd_sim_m_12?tag=quirkey-20",
 	"subalbum": [
+				  	{
+					"title": "Michael",
+					"artist": "Michael",
+					"image": "images/michael_small.jpg",
+					"large_image": "images/michael_large.jpg",
+					"price": 13.99,
+					"pid": 1,
+					"url": "http://www.amazon.co.uk/19-Adele/dp/B000XGDO04"
+				  },
 				  {
 					"title": "19",
 					"artist": "Adele",
@@ -16,44 +26,47 @@
 					"price": 13.99,
 					"pid": 0,
 					"url": "http://www.amazon.co.uk/19-Adele/dp/B000XGDO04"
-				  },
-				  {
-					"title": "Doo Wops and Hooligans",
-					"artist": "Bruno Mars",
-					"image": "images/5.jpg",
-					"large_image": "images/5large.jpg",
-					"price": 13.99,
-					"pid": 1,
-					"url": "http://www.amazon.com/Doo-Wops-Hooligans-Bruno-Mars/dp/B003ZJ0ZX0"
 				  }
 				 ]
   },
   {
-    "title": "Pop Music 2",
+    "title": "R & B Music",
     "artist": "Bruno Mars and Others",
     "image": "images/54.jpg",
     "large_image": "images/54.jpg",
     "price": 13.98,
+    "pid" : 1,
     "url": "http://www.amazon.com/Bitte-Orca-Dirty-Projectors/dp/B0026T4RTI/ref=pd_sim_m_12?tag=quirkey-20",
 	"subalbum": [
-				  {
-					"title": "19",
-					"artist": "Adele 2",
-					"image": "images/4.jpg",
-					"large_image": "images/4large.jpg",
+				  	{
+					"title": "Doo Wops and Hooligans",
+					"artist": "Bruno Mars",
+					"image": "images/bruno_small.jpg",
+					"large_image": "images/bruno_large.jpg",
 					"price": 13.99,
 					"pid": 0,
+					"url": "http://www.amazon.com/Doo-Wops-Hooligans-Bruno-Mars/dp/B003ZJ0ZX0"
+				  },
+				  
+				  {
+					"title": "The Lady Killer",
+					"artist": "Cee Lo Green",
+					"image": "images/ceelow_small.jpg",
+					"large_image": "images/ceelow_large.jpg",
+					"price": 13.99,
+					"pid": 1,
 					"url": "http://www.amazon.co.uk/19-Adele/dp/B000XGDO04"
 				  },
 				  {
-					"title": "Doo Wops and Hooligans 2",
-					"artist": "Bruno Mars 2",
-					"image": "images/5.jpg",
-					"large_image": "images/5large.jpg",
+					"title": "Whats my name?",
+					"artist": "Rihanna",
+					"image": "images/rihanna_small.jpg",
+					"large_image": "images/rihanna_large.jpg",
 					"price": 13.99,
-					"pid": 1,
+					"pid": 2,
 					"url": "http://www.amazon.com/Doo-Wops-Hooligans-Bruno-Mars/dp/B003ZJ0ZX0"
-				  }
+				  },
+
 				 ]
   },
   {
@@ -62,6 +75,7 @@
     "image": "images/testfolder.jpg",
     "large_image": "images/testfolder.jpg",
     "price": 13.99,
+    "pid" : 2,
     "url": "http://www.amazon.com/"
   },
   {
@@ -70,6 +84,7 @@
     "image": "images/testfolder.jpg",
     "large_image": "images/testfolder.jpg",
     "price": 13.99,
+    "pid" : 3,
     "url": "http://www.amazon.com/"
   }
 ]

@@ -53,6 +53,7 @@ img {
 	text-align:center;
 	width:250px;
 	}
+	
 .item-title {
   font-weight: bold;
 }
@@ -65,4 +66,9 @@ img {
 }
 .item-detail .item-info {
   padding: 100px 10px 0px 10px;
+}
+
+.subalbum img{
+   width:170px;
+   
 }
