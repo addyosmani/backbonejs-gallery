@@ -52,14 +52,22 @@ var PhotoView = Backbone.View.extend({
 
 
     events: {
-        "keypress .uqf" : "updateOnEnter",
-        "click .uq"     : "update",
+        "keypress .item-detail" : "updateOnEnter",
+        "click .uq"     : "update"
     },
+    
 
     initialize: function(options) {
         this.album = options.album;
+        
+        /*hack to fix the back-button on photo view*/
+        $(document).bind('keypress', function(e) {
+           if(e.keyCode == 37){
+               window.history.go(-2);
+           }
+        });
     },
-
+    
     update: function(e) {
         e.preventDefault();		
         var album_item = this.album.getByPid(this.model.cid);
@@ -71,6 +79,7 @@ var PhotoView = Backbone.View.extend({
     },
 
     updateOnEnter: function(e) {
+    alert('aa');
         if (e.keyCode == 13) {
             return this.update(e);
         }
@@ -199,9 +208,7 @@ var Workspace = Backbone.Controller.extend({
                     new AlbumView({model: ws._album});
 					
                     ws._photos = new PhotoCollection(ws._data);
-
                     ws._index = new IndexView({model: ws._photos}); 
-                   
                     Backbone.history.loadUrl();
                 }
             });
@@ -233,18 +240,16 @@ var Workspace = Backbone.Controller.extend({
 	/* Routing for browse paths where subalbums cached*/
 	directphoto: function(id){
 
+		if(this._currentsub !== null){
+			window.location.hash +=  this._currentsub;
+		}
 	
-	if(this._currentsub !== null){
-	window.location.hash +=  this._currentsub;
-	}
-	
-
      
 	},
 
     /* Routing for bookmarked paths where subalbums non-cached - try merging into above*/
     hashphoto: function(id, num){
-   
+    
 	
      this._currentsub = num;
 	 
