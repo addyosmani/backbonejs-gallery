@@ -18,6 +18,12 @@ body {
   margin: 0px;
 }
 
+#header h3 {
+  font-family:Arial;
+  padding:0px;
+  margin:2px;
+}
+
 #header h1 a {
   color:white;
   text-decoration:none;
