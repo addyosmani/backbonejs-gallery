@@ -7,10 +7,14 @@ Inspired by the store example by Elf M. Sternberg I decided to try taking this c
 
 Issue 3 with bookmarking closed. The status of bookmarking is that I've now moved over to Backbone's 'at' allowing direct index references rather than cid lookups. What this means is that subalbums and photos now have fully working bookmarks (which actually weren't correct in the last commit). You can now use index.html#imageid/1/subalbum/1 to access an image inside a subalbum however I might alter this to subalbum/n/imageid/m or something similar. Quite a lot of refactoring to be done within the codebase.
 
-## Updates
+
+## Updates (Feb 2)
+
+Chrome, Safari and Webkit support is fixed. This broke when the JSON gallery file changed structure and incorrectly including some additional characters causing invalidation. Third level back-button stuff is having issues with these browsers still, but a re-write of this to make it cleaner may bare some improvements here.
+
+## Updates (Jan 31)
 
 We now support customized sorting on all levels. In order to set the current view's order for an item, all you need to do is set its 'pid' value. In the album view and subalbum view, this will allow you to define whether you want an album cover to be displayed first, second, third etc. It also means that you can define an array of images in no particular order then order them based on your needs. Note: an order *must* be defined otherwise you'll run into issues with bookmarking (however the basic views should still function)
 
 Back-button support now active for all levels, even with hacks in place.
 
-Safari support seems to have broken in the last few commits. Need to correct.

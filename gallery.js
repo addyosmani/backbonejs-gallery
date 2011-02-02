@@ -2,27 +2,15 @@ var Photo = Backbone.Model.extend({});
 
 var PhotoCollection = Backbone.Collection.extend({
     model: Photo,
-    /*Define what we're sorting based on across all albums - pid is the sort id*/
-    
     comparator: function(item) {
         return item.get('pid');
     }
 });
 
 var AlbumItem = Backbone.Model.extend({
-
-    initialize: function(){
-       
-        this.set({
-            subid : 'sub_' + this.cid
-         })
-    },
-    
     update: function(amount) {
     }
 });
-
-
 
 
 var Album = Backbone.Collection.extend({
@@ -36,12 +24,12 @@ var Album = Backbone.Collection.extend({
 
 var AlbumView = Backbone.View.extend({
     el: $('.album-info'),
-
     initialize: function() {
         this.model.bind('change', _.bind(this.render, this));
     },
-
     render: function() {
+    
+            var sum = this.model.reduce(function(m, n) { return 0; }, 0);
     }
 });
 
@@ -61,6 +49,7 @@ var PhotoView = Backbone.View.extend({
         this.album = options.album;
         
         /*hack to fix the back-button on photo view*/
+        
         $(document).bind('keypress', function(e) {
            if(e.keyCode == 8){
                window.history.go(-1);
@@ -75,7 +64,7 @@ var PhotoView = Backbone.View.extend({
             album_item = new AlbumItem({photo: this.model});
             this.album.add(album_item, {silent: true});
         }
-        album_item.update(parseInt($('.uqf').val()));
+        //album_item.update(parseInt($('.uqf').val()));
     },
 
     updateOnEnter: function(e) {
@@ -113,6 +102,8 @@ var IndexView = Backbone.View.extend({
 
 });
 
+
+
 var SubalbumView = Backbone.View.extend({
     el: $('#main'),
     indexTemplate: $("#subindexTmpl").template(),
@@ -121,7 +112,6 @@ var SubalbumView = Backbone.View.extend({
     
     /*bad hack to prevent internal keypress handling on sub view */
      $(document).unbind('keypress');
-
 
     },
 
@@ -135,49 +125,6 @@ var SubalbumView = Backbone.View.extend({
         return this;
     }
 
-});
-
-
-
-var SubindexView = Backbone.View.extend({
-    el: $('#main'),
-	itemTemplate: $("#subindexTmpl").template(),
-
-
-    events: {
-        "keypress .uqf" : "updateOnEnter",
-        "click .uq"     : "update",
-    },
-
-    initialize: function(options) {
-        this.album = options.album;
-    },
-
-    update: function(e) {
-        e.preventDefault();		
-        var album_item = this.album.getByPid(this.model.cid);
-		
-        if (_.isUndefined(album_item)) {
-            album_item = new AlbumItem({photo: this.model, quantity: 0});
-            this.album.add(album_item, {silent: true});
-        }
-    },
-
-    updateOnEnter: function(e) {
-        if (e.keyCode == 13) {
-            return this.update(e);
-        }
-    },
-
-    render: function() {
-        var sg = this;
-        this.el.fadeOut('fast', function() {
-            sg.el.empty();
-            $.tmpl(sg.itemTemplate, sg.model).appendTo(sg.el);
-            sg.el.fadeIn('fast');
-        });
-        return this;
-    }
 });
 
 
@@ -201,23 +148,28 @@ var Workspace = Backbone.Controller.extend({
     },
 
     initialize: function(options) {
-
-	
+    
         var ws = this;
-        var ic = 0;
-        if (this._index === null) {
+       
+        if (this._index === null){
             $.ajax({
                 url: 'data/album1.json',
                 dataType: 'json',
                 data: {},
                 success: function(data) {
+                
+                
 				    ws._data = data;
+				    
                     ws._album = new Album();
                     new AlbumView({model: ws._album});
 					
-                    ws._photos = new PhotoCollection(ws._data);
+                    ws._photos = new PhotoCollection(data);
                     ws._index = new IndexView({model: ws._photos}); 
+ 
                     Backbone.history.loadUrl();
+                    
+                    
                 }
             });
             return this;
@@ -227,51 +179,45 @@ var Workspace = Backbone.Controller.extend({
 
     index: function() {
         this._index.render();
+
     },
 	
 	subindex:function(id){
 		
+		
 	  	var properindex = id.replace('c','');	
 	  	this._currentsub = properindex;
-	  	
-
-        /*cache these and the cid problem should go.*/
-        
 		this._subphotos = new PhotoCollection(this._data[properindex].subalbum);
 		this._subalbums = new SubalbumView({model: this._subphotos});
 		this._subalbums.render();
 		
-		
 	},
 	
-	
-	/* Routing for browse paths where subalbums cached*/
-	directphoto: function(id){
 
+	directphoto: function(id){
 		if(this._currentsub !== null){
 			window.location.hash +=  this._currentsub;
 		}
-	
-     
+	    
 	},
 
-    /* Routing for bookmarked paths where subalbums non-cached - try merging into above*/
-    hashphoto: function(id, num){
-    
-	
-     this._currentsub = num;
-	 
-	 if(this._subphotos == undefined){
-	 	this._subphotos = new PhotoCollection(this._data[this._currentsub].subalbum);
-	 }
-	 
-     this._subphotos.at(id)._view = new PhotoView({model: this._subphotos.at(id), album: this._album});
-     this._subphotos.at(id)._view.render();
-  
 
+    hashphoto: function(id, num){
+	
+	     this._currentsub = num;
+		 
+		 if(this._subphotos == undefined){
+		 	this._subphotos = new PhotoCollection(this._data[this._currentsub].subalbum);
+		 }
+		 
+	     this._subphotos.at(id)._view = new PhotoView({model: this._subphotos.at(id), album: this._album});
+	     this._subphotos.at(id)._view.render();
+  
 	    
 	  }
 });
 
+
 workspace = new Workspace();
 Backbone.history.start();
+
