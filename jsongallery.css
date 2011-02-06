@@ -8,7 +8,7 @@ body {
 }
 
 #header {
-  background: orange;
+  background: #000;
   margin: 0px;
   padding: 20px;
 }
@@ -23,6 +23,7 @@ body {
   padding:0px;
   margin:2px;
   font-size:0.9em;
+  color:#666;
 }
 
 #header h1 a {
@@ -79,4 +80,9 @@ padding:100px 33px 0;
 
 .jstest {
   padding:10px;
+}
+
+ .back-link {
+ padding-top:10px;
+ float:left;
 }

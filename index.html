@@ -7,6 +7,7 @@
         <title>Multi-Level Backbone Image Gallery</title>
         <link rel="stylesheet" href="jsongallery.css" type="text/css" media="screen" charset="utf-8" />
         <link rel="stylesheet" href="shadows.css" type="text/css" media="screen" charset="utf-8" />
+		<link rel="stylesheet" href="buttons.css" type="text/css" media="screen" charset="utf-8" />
 
 
                
@@ -43,9 +44,9 @@
                     <div class="item-artist">${attributes.artist}</div>
                     <div class="item-title">${attributes.title}</div>
                     <div class="item-price">$${attributes.price}</div>
-
-                    <div class="item-link"><a href="${attributes.url}">Buy this item</a></div>
-                    <div class="back-link"><a href="#">&laquo; Back to Albums</a></div>
+					<br />
+                    <div class="item-link"><a href="${attributes.url}" class="button">Buy this item</a></div>
+                    <div class="back-link"><a href="#" class="button">&laquo; Back to Albums</a></div>
                   </div>
                 </div>
                 </script>
