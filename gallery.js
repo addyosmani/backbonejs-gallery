@@ -1,4 +1,6 @@
 
+var cache = new CacheProvider;
+
 
 /**
  * Model of a Photo used to define the items that appear in a PhotoCollection
@@ -164,6 +166,8 @@ var PhotoView = Backbone.View.extend({
 });
 
 
+
+
 /**
  * The controller that defines our main application 'workspace'. Here we handle
  * how routes should be interpreted, the basic initialization of the application
@@ -199,6 +203,8 @@ var Workspace = Backbone.Controller.extend({
                 data: {},
                 success: function(data) {
                 
+                        
+
 				    ws._data = data;
 				    
                     ws._album = new Album();
@@ -239,11 +245,48 @@ var Workspace = Backbone.Controller.extend({
 	 */
 	subindex:function(id){
 		
-	  	var properindex = id.replace('c','');	
-	  	this._currentsub = properindex;
-		this._subphotos = new PhotoCollection(this._data[properindex].subalbum);
-		this._subalbums = new SubalbumView({model: this._subphotos});
-		this._subalbums.render();
+		/*
+		   some caching ideas..
+		   
+		   
+		   use Dustin Diaz's cache provider. Its a lot easier than messing with your own
+		   personal caching stuff. 
+		   
+		   
+		   
+		   var cache = new CacheProvider;
+		   
+		   this._subphotos = cache.get('pc' + properindex) || cache.set('pc' + properindex, new PhotoCollection(this._data[properindex].subalbum);
+		   this._subalbums = cache.get('sv' + properindex) || cache.set('sv' + properindex, new SubalbumView({model: this._subphotos}));
+		   this._subalbums.render();
+		   
+		   
+
+window.getElementsByClassName = getElementsByClassName || function(c) {
+  var reg = cache.get(c) || cache.set(c, new RegExp("(?:^|\\s+)" + c + "(?:\\s+|$)"));
+  var elements = document.getElementsByTagName('*');
+  var results = [];
+  for (var i = 0; i < elements.length; i++) {
+    if (elements[i].className.match(reg)) {
+      results.push(elements[i]);
+    }
+  }
+  return results;
+};
+
+
+		  
+		   
+		*/
+		
+	   var properindex = id.replace('c','');	
+	   this._currentsub = properindex;
+
+	   this._subphotos = cache.get('pc' + properindex) || cache.set('pc' + properindex, new PhotoCollection(this._data[properindex].subalbum));
+	   this._subalbums = cache.get('sv' + properindex) || cache.set('sv' + properindex, new SubalbumView({model: this._subphotos}));
+	   this._subalbums.render();
+		
+	
 		
 	},
 	
@@ -279,12 +322,19 @@ var Workspace = Backbone.Controller.extend({
 	     this._currentsub = num;
 		 
 		 if(this._subphotos == undefined){
-		 	this._subphotos = new PhotoCollection(this._data[this._currentsub].subalbum);
+		   this._subphotos = cache.get('pc' + num) || cache.set('pc' + num, new PhotoCollection(this._data[num].subalbum));
 		 }
+		 
+		 
 		 
 	     this._subphotos.at(id)._view = new PhotoView({model: this._subphotos.at(id), album: this._album});
 	     this._subphotos.at(id)._view.render();
-  
+	     
+	     
+	     /*
+	    this._subphotos.at(id)._view = cache.set('sp' + id + num) || cache.get('sp' + id + num, new PhotoView({model: this._subphotos.at(id), album: this._album}));
+	    this._subphotos.at(id)._view.render();
+  */
 	    
 	  }
 });
