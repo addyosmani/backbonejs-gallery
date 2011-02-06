@@ -6,7 +6,13 @@ var cache = new CacheProvider;
  * Model of a Photo used to define the items that appear in a PhotoCollection
  * @type Backbone.Model
  */
-var Photo = Backbone.Model.extend({});
+var Photo = Backbone.Model.extend({
+   subalbum: function() { return 'c' + workspace._currentsub; }
+});
+
+
+//var Photo = Backbone.Model.extend({});
+
 
 /**
  * Data collection of Photo items used in index, subalbum and photo views
@@ -55,14 +61,12 @@ var SubalbumView = Backbone.View.extend({
     indexTemplate: $("#subindexTmpl").template(),
     
     initialize: function(options){
-    
-    /*bad hack to prevent internal keypress handling on sub view */
-     $(document).unbind('keypress');
-       
+
     },
 
     render: function() {
         var sg = this;
+
         this.el.fadeOut('fast', function() {
             sg.el.empty();
             $.tmpl(sg.indexTemplate, sg.model.toArray()).appendTo(sg.el);
@@ -87,18 +91,12 @@ var PhotoView = Backbone.View.extend({
 
     initialize: function(options) {
         this.album = options.album;
-          
-         /**
-		 * Bind keypress hack to handle level-three navigation via keypress
-		 */ 
-	     $(document).bind('keypress', function(e){
-	 	   (e.keyCode == 8) ? (window.history.go(-1)) : this.unbind('keypress');
-	     });
        
     },
     
     render: function() {
         var sg = this;
+        
         this.el.fadeOut('fast', function() {
             sg.el.empty();
             $.tmpl(sg.itemTemplate, sg.model).appendTo(sg.el);
@@ -131,8 +129,8 @@ var Workspace = Backbone.Controller.extend({
     routes: {
         "": "index",
         "subalbum/:id": "subindex",
-        "imageid/:id/subalbum/": "directphoto",
-        "imageid/:id/subalbum/:num": "hashphoto"
+        "subalbum/:id/" : "directphoto",
+        "subalbum/:id/:num" : "hashphoto"
     },
 
     initialize: function(options) {
@@ -187,22 +185,8 @@ var Workspace = Backbone.Controller.extend({
 		
 	},
 	
-	/**
-	 * Bookmark fix: Handle direct attempts to access particular images within subalbums. When browsing
-	 * through the application, we cache references to the subalbums being viewed and use
-	 * this to update the window's location hash to correctly point at the subalbum an image
-	 * is within (ie. this._currentsub). This is a hack used to ensure that when bookmarking,
-	 * the final photoview is aware of the subalbum which it originated from. If this wasn't
-	 * done, a photo could be traversed to, however you would not be able to bookmark and access
-	 * it directly outside of the application.
-	 * @type function
-	 * @param {String} id An ID specific to a particular subalbum based on CIDs
-	 */
 	directphoto: function(id){
-		if(this._currentsub !== null){
-			window.location.hash +=  this._currentsub;
-		}
-	    
+
 	},
 
 	/**
@@ -211,12 +195,13 @@ var Workspace = Backbone.Controller.extend({
 	 * subphotos object exists. If it doesn't, we generate a new PhotoCollection and finally create
 	 * a new PhotoView to display the image that was being queried for. 
 	 * @type function
-	 * @param {String} id An ID specific to a particular image being accessed
-	 * @param {num} id An ID specific to a particular subalbum being accessed
+	 * @param {String} num An ID specific to a particular image being accessed
+	 * @param {Integer} id An ID specific to a particular subalbum being accessed
 	 */
-    hashphoto: function(id, num){
-	
+	  hashphoto: function(num, id){
 	    this._currentsub = num;
+	    
+	    num = num.replace('c','');
 	    
 		if(this._subphotos == undefined){
 		   this._subphotos = cache.get('pc' + num) || cache.set('pc' + num, new PhotoCollection(this._data[num].subalbum));
