@@ -49,7 +49,6 @@ var PhotoView = Backbone.View.extend({
         this.album = options.album;
         
         /*hack to fix the back-button on photo view*/
-        
         $(document).bind('keypress', function(e) {
            if(e.keyCode == 8){
                window.history.go(-1);
@@ -64,7 +63,6 @@ var PhotoView = Backbone.View.extend({
             album_item = new AlbumItem({photo: this.model});
             this.album.add(album_item, {silent: true});
         }
-        //album_item.update(parseInt($('.uqf').val()));
     },
 
     updateOnEnter: function(e) {

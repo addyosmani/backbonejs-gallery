@@ -6,11 +6,12 @@
 
         <title>Multi-Level Backbone Image Gallery</title>
         <link rel="stylesheet" href="jsongallery.css" type="text/css" media="screen" charset="utf-8" />
+        <link rel="stylesheet" href="shadows.css" type="text/css" media="screen" charset="utf-8" />
 
 
         
                 <script id="indexTmpl" type="text/x-jquery-tmpl">
-                <div class="item">
+                <div class="item drop-shadow round">
                  <div class="item-image">
                      <a href="#subalbum/${cid}"><img src="${attributes.image}" alt="${attributes.title}" /></a>
                  </div>
@@ -22,7 +23,7 @@
 				
 			
 				<script id="subindexTmpl" type="text/x-jquery-tmpl">
-                <div class="item">
+                <div class="item  drop-shadow round">
                  <div class="item-image subalbum">
                      <a href="#imageid/${attributes.pid}/subalbum/"><img src="${attributes.image}" alt="${attributes.title}" alt="No images in this folder"/></a>
                  </div>
@@ -55,7 +56,7 @@
                 <h1>
                     <a href="#">Multi-Level Backbone Gallery</a>
                 </h1>
-                <h3>An OSS project by Addy Osmani</h3>
+                <h3>Created by Addy Osmani</h3>
 
                 
             </div>
