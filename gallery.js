@@ -89,6 +89,7 @@ var IndexView = Backbone.View.extend({
     indexTemplate: $("#indexTmpl").template(),
 
     render: function() {
+        $('.jstest').remove();
         var sg = this;
         this.el.fadeOut('fast', function() {
             sg.el.empty();
