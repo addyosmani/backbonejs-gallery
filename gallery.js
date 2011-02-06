@@ -4,6 +4,7 @@ var cache = new CacheProvider;
 
 /**
  * Model of a Photo used to define the items that appear in a PhotoCollection
+ * subalbum returns a reference to the current subalbum being viewed via the workspace.
  * @type Backbone.Model
  */
 var Photo = Backbone.Model.extend({
