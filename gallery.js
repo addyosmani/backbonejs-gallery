@@ -19,41 +19,6 @@ var PhotoCollection = Backbone.Collection.extend({
     }
 });
 
-/**
- * Model for an Items contained in an Album
- * @type Backbone.Model
- */
-var AlbumItem = Backbone.Model.extend({
-    update: function(amount) {
-    }
-});
-
-/**
- * Data collection of AlbumItem items
- * @type Backbone.Collection
- */
-var Album = Backbone.Collection.extend({
-    model: AlbumItem,
-    getByPid: function(pid) {
-        return this.detect(function(obj) { return (obj.get('photo').cid == pid); });
-    },
-});
-
-
-/**
- * A view for displaying album items
- * @type Backbone.Collection
- */
-var AlbumView = Backbone.View.extend({
-    el: $('.album-info'),
-    initialize: function() {
-        this.model.bind('change', _.bind(this.render, this));
-    },
-    render: function() {
-            var sum = this.model.reduce(function(m, n) { return 0; }, 0);
-    }
-});
-
 
 /**
  * The default view seen when opening up the application for the first time. This
@@ -120,12 +85,6 @@ var PhotoView = Backbone.View.extend({
     itemTemplate: $("#itemTmpl").template(),
 
 
-    events: {
-        "keypress .item-detail" : "updateOnEnter",
-        "click .uq"     : "update"
-    },
-    
-
     initialize: function(options) {
         this.album = options.album;
           
@@ -138,22 +97,6 @@ var PhotoView = Backbone.View.extend({
        
     },
     
-    update: function(e) {
-        e.preventDefault();		
-        var album_item = this.album.getByPid(this.model.cid);
-        if (_.isUndefined(album_item)) {
-            album_item = new AlbumItem({photo: this.model});
-            this.album.add(album_item, {silent: true});
-        }
-    },
-
-    updateOnEnter: function(e) {
-
-        if (e.keyCode == 13) {
-            return this.update(e);
-        }
-    },
-
     render: function() {
         var sg = this;
         this.el.fadeOut('fast', function() {
@@ -203,8 +146,6 @@ var Workspace = Backbone.Controller.extend({
                 data: {},
                 success: function(data) {
 				    ws._data = data;
-                    ws._album = new Album();
-                    new AlbumView({model: ws._album});
                     ws._photos = new PhotoCollection(data);
                     ws._index = new IndexView({model: ws._photos}); 
                     Backbone.history.loadUrl();
@@ -280,7 +221,7 @@ var Workspace = Backbone.Controller.extend({
 		if(this._subphotos == undefined){
 		   this._subphotos = cache.get('pc' + num) || cache.set('pc' + num, new PhotoCollection(this._data[num].subalbum));
 		 }	
-	    this._subphotos.at(id)._view = new PhotoView({model: this._subphotos.at(id), album: this._album});
+	    this._subphotos.at(id)._view = new PhotoView({model: this._subphotos.at(id)});
 	    this._subphotos.at(id)._view.render();
 	    
 	  }
