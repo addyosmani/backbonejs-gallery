@@ -202,20 +202,13 @@ var Workspace = Backbone.Controller.extend({
                 dataType: 'json',
                 data: {},
                 success: function(data) {
-                
-                        
-
 				    ws._data = data;
-				    
                     ws._album = new Album();
                     new AlbumView({model: ws._album});
-					
                     ws._photos = new PhotoCollection(data);
                     ws._index = new IndexView({model: ws._photos}); 
- 
                     Backbone.history.loadUrl();
-                    
-                    
+
                 }
             });
             return this;
@@ -238,55 +231,18 @@ var Workspace = Backbone.Controller.extend({
 	 * traversed in the default initialization, here we create a new PhotoCollection 
 	 * based on indices passed through the UI and an already cached data-set. We then
 	 * create a new SubalbumvView instance and render the subalbums and set the current
-	 * subphotos data-array to contain our subphotos. (All of this process can be improved
-	 * and should be cache-optimized)
+	 * subphotos data-array to contain our subphotos.
 	 * @type function
 	 * @param {String} id An ID specific to a particular subalbum based on CIDs
 	 */
 	subindex:function(id){
 		
-		/*
-		   some caching ideas..
-		   
-		   
-		   use Dustin Diaz's cache provider. Its a lot easier than messing with your own
-		   personal caching stuff. 
-		   
-		   
-		   
-		   var cache = new CacheProvider;
-		   
-		   this._subphotos = cache.get('pc' + properindex) || cache.set('pc' + properindex, new PhotoCollection(this._data[properindex].subalbum);
-		   this._subalbums = cache.get('sv' + properindex) || cache.set('sv' + properindex, new SubalbumView({model: this._subphotos}));
-		   this._subalbums.render();
-		   
-		   
-
-window.getElementsByClassName = getElementsByClassName || function(c) {
-  var reg = cache.get(c) || cache.set(c, new RegExp("(?:^|\\s+)" + c + "(?:\\s+|$)"));
-  var elements = document.getElementsByTagName('*');
-  var results = [];
-  for (var i = 0; i < elements.length; i++) {
-    if (elements[i].className.match(reg)) {
-      results.push(elements[i]);
-    }
-  }
-  return results;
-};
-
-
-		  
-		   
-		*/
-		
 	   var properindex = id.replace('c','');	
 	   this._currentsub = properindex;
-
 	   this._subphotos = cache.get('pc' + properindex) || cache.set('pc' + properindex, new PhotoCollection(this._data[properindex].subalbum));
 	   this._subalbums = cache.get('sv' + properindex) || cache.set('sv' + properindex, new SubalbumView({model: this._subphotos}));
 	   this._subalbums.render();
-		
-	
+
 		
 	},
 	
@@ -319,22 +275,13 @@ window.getElementsByClassName = getElementsByClassName || function(c) {
 	 */
     hashphoto: function(id, num){
 	
-	     this._currentsub = num;
-		 
-		 if(this._subphotos == undefined){
+	    this._currentsub = num;
+	    
+		if(this._subphotos == undefined){
 		   this._subphotos = cache.get('pc' + num) || cache.set('pc' + num, new PhotoCollection(this._data[num].subalbum));
-		 }
-		 
-		 
-		 
-	     this._subphotos.at(id)._view = new PhotoView({model: this._subphotos.at(id), album: this._album});
-	     this._subphotos.at(id)._view.render();
-	     
-	     
-	     /*
-	    this._subphotos.at(id)._view = cache.set('sp' + id + num) || cache.get('sp' + id + num, new PhotoView({model: this._subphotos.at(id), album: this._album}));
+		 }	
+	    this._subphotos.at(id)._view = new PhotoView({model: this._subphotos.at(id), album: this._album});
 	    this._subphotos.at(id)._view.render();
-  */
 	    
 	  }
 });
