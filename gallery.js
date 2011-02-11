@@ -12,8 +12,6 @@ var Photo = Backbone.Model.extend({
 });
 
 
-//var Photo = Backbone.Model.extend({});
-
 
 /**
  * Data collection of Photo items used in index, subalbum and photo views
