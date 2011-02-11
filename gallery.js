@@ -4,11 +4,11 @@ var cache = new CacheProvider;
 
 /**
  * Model of a Photo used to define the items that appear in a PhotoCollection
- * subalbum returns a reference to the current subalbum being viewed via the workspace.
+ * subalbum returns a reference to the current subalbum being viewed via the gallery.
  * @type Backbone.Model
  */
 var Photo = Backbone.Model.extend({
-   subalbum: function() { return 'c' + workspace._currentsub; }
+   subalbum: function() { return 'c' + gallery._currentsub; }
 });
 
 
@@ -111,13 +111,13 @@ var PhotoView = Backbone.View.extend({
 
 
 /**
- * The controller that defines our main application 'workspace'. Here we handle
+ * The controller that defines our main application 'gallery'. Here we handle
  * how routes should be interpreted, the basic initialization of the application
  * with data through an $.ajax call to fetch our JSON store and the creation of 
  * collections and views based on the models defined previously.
  * @type Backbone.Controller
  */
-var Workspace = Backbone.Controller.extend({
+var Gallery = Backbone.Controller.extend({
     _index: null,
     _photos: null,
     _album :null,
@@ -214,6 +214,6 @@ var Workspace = Backbone.Controller.extend({
 });
 
 
-workspace = new Workspace();
+gallery = new Gallery();
 Backbone.history.start();
 
