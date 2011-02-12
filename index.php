@@ -62,7 +62,7 @@
             </div>
 
             <div id="main">
-                 <div class="jstest">This application requires JavaScript to function correctly.</div>
+                 <div class="jstest">This application is running with JavaScript turned off.</div>
             </div>
         </div>
         <script src="LAB.min.js" type="text/javascript"></script>
@@ -108,7 +108,7 @@ switch($folderType){
 		$i=0;
 		 foreach($subalbums[$index] as $sub){
 		 
-		   echo "<li class='item-image'><a href='"  . $sub['large_image'] . "'><img src='" . $sub['image'] . "'></img>" .  $sub['title']  . "</a> " . $sub['artist'] ." </li>";
+		   echo "<li class='item drop-shadow round'><a href='"  . $sub['large_image'] . "'><img src='" . $sub['image'] . "'></img>" .  $sub['title']  . "</a> " . $sub['artist'] ." </li>";
 /*
 	 echo "<li><a href='index.php?view=photo&subalbum=" . $index . "&ind=" . $i . "'><img src='" . $sub['image'] . "'></img>" .  $sub['title']  . "</a></li>";
 	 $i++;*/
@@ -122,7 +122,7 @@ switch($folderType){
 	    $ind = 0;
 		echo "<ul class='gallery'>";
 		foreach($json_a as $p => $k){
-		   echo "<li><a href='index.php?view=subalbum&ind=$ind'><img src='" . $k['image'] . "'></img>" .  $k['title']  . "</a> " . $k['years'] ." </li>";
+		   echo "<li class='item drop-shadow round'><a href='index.php?view=subalbum&ind=$ind'><img src='" . $k['image'] . "'></img>" .  $k['title']  . "</a> " . $k['years'] ." </li>";
 		   $ind++;
 		}
 		echo "</ul>";

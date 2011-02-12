@@ -87,3 +87,5 @@ padding:100px 33px 0;
  float:left;
 }
 
+.gallery { list-style-type:none}
+.gallery img { width:250px;}
