@@ -35,12 +35,13 @@ var IndexView = Backbone.View.extend({
     indexTemplate: $("#indexTmpl").template(),
 
     render: function() {
-        $('.jstest').remove();
+        $('.jstest,.gallery').remove();
         var sg = this;
+        
         this.el.fadeOut('fast', function() {
-            sg.el.empty();
-            $.tmpl(sg.indexTemplate, sg.model.toArray()).appendTo(sg.el);
-            sg.el.fadeIn('fast');
+        sg.el.empty();
+        $.tmpl(sg.indexTemplate, sg.model.toArray()).appendTo(sg.el);
+        sg.el.fadeIn('fast');
         });
         return this;
     }
