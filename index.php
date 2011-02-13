@@ -56,7 +56,7 @@
         <div id="container">
             <div id="header">
                 <h1>
-                    <a href="#">Multi-Level Backbone Gallery</a>
+                    <a href="index.php">Multi-Level Backbone Gallery</a>
                 </h1>
                 <h3>Created by Addy Osmani for 'Building Single-page Apps With jQuery's Best Friends'</h3>
             </div>
@@ -76,7 +76,15 @@
 		   .script("gallery.js");      
         </script>
         
-        <?
+<?
+
+
+/*
+
+	PHP fallback to enable graceful degredation
+
+*/
+
 
 $json = file_get_contents("data/album1.json");
 $json_a=json_decode($json,true);
@@ -97,21 +105,17 @@ foreach ($json_a as $p => $k){
 } 
 
 
-
 switch($folderType){
 
 	case "photo":
+	  //print_r($subalbums[$subal][$index]);
 	break;
 	
 	case "subalbum":
 		echo "<ul class='gallery'>";
-		$i=0;
 		 foreach($subalbums[$index] as $sub){
-		 
-		   echo "<li class='item drop-shadow round'><a href='"  . $sub['large_image'] . "'><img src='" . $sub['image'] . "'></img>" .  $sub['title']  . "</a> " . $sub['artist'] ." </li>";
-/*
-	 echo "<li><a href='index.php?view=photo&subalbum=" . $index . "&ind=" . $i . "'><img src='" . $sub['image'] . "'></img>" .  $sub['title']  . "</a></li>";
-	 $i++;*/
+		
+		  echo "<li class='item drop-shadow round'><a href='"  . $sub['large_image'] . "'><img src='" . $sub['image'] . "'></img>" .  $sub['title']  . "</a> " . $sub['artist'] ." </li>";
 	 
 		  }
 		  
