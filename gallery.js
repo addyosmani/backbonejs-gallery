@@ -128,7 +128,7 @@ var Gallery = Backbone.Controller.extend({
 
     routes: {
         "": "index",
-        "subalbum/:id": "subindex",
+        "subalbum/:id": "hashsub",
         "subalbum/:id/" : "directphoto",
         "subalbum/:id/:num" : "hashphoto"
     },
@@ -174,7 +174,7 @@ var Gallery = Backbone.Controller.extend({
 	 * @type function
 	 * @param {String} id An ID specific to a particular subalbum based on CIDs
 	 */
-	subindex:function(id){
+	hashsub:function(id){
 		
 	   var properindex = id.replace('c','');	
 	   this._currentsub = properindex;
