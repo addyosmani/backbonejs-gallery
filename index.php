@@ -82,7 +82,7 @@ $index = $_GET['ind'];
 $subal = $_GET['subalbum'];
 $subalbums = array();
 $i =0; $j =0;
-
+error_reporting(0);
 
 //expose convenient access to subalbums
 foreach ($json_a as $p => $k){
@@ -114,6 +114,7 @@ switch($folderType){
 		echo "</ul>";
 	break;
 }
+
 
 ?>
         <script type="text/javascript">
