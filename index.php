@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
         <title>Multi-Level Backbone Image Gallery</title>
-        <link rel="stylesheet" href="jsongallery.css" type="text/css" media="screen" charset="utf-8" />
+        <link rel="stylesheet" href="gallery.css" type="text/css" media="screen" charset="utf-8" />
         <link rel="stylesheet" href="shadows.css" type="text/css" media="screen" charset="utf-8" />
 		<link rel="stylesheet" href="buttons.css" type="text/css" media="screen" charset="utf-8" />
 
@@ -66,26 +66,15 @@
             </div>
         </div>
         <script src="LAB.min.js" type="text/javascript"></script>
-        <script type="text/javascript">
-		   $LAB
-		   .script("jquery-1.4.4.min.js").wait()
-		   .script("jquery.tmpl.min.js")
-		   .script("underscore-min.js")
-		   .script("backbone-min.js")
-		   .script("cacheprovider.js").wait()
-		   .script("gallery.js");      
-        </script>
+
         
 <?
 
 
-/*
-
-	PHP fallback to enable graceful degredation
-
-*/
+//PHP fallback to enable graceful degredation
 
 
+//feel free to substitute with a more secure read-in method
 $json = file_get_contents("data/album1.json");
 $json_a=json_decode($json,true);
 $folderType = $_GET['view'];
@@ -95,7 +84,7 @@ $subalbums = array();
 $i =0; $j =0;
 
 
-
+//expose convenient access to subalbums
 foreach ($json_a as $p => $k){
     foreach($k["subalbum"] as $sub){ 
 		 $subalbums[$i][$j] = $sub;
@@ -104,21 +93,14 @@ foreach ($json_a as $p => $k){
 	$i++;
 } 
 
-
+//handle 'view' switching
 switch($folderType){
-
-	case "photo":
-	  //print_r($subalbums[$subal][$index]);
-	break;
-	
 	case "subalbum":
 		echo "<ul class='gallery'>";
 		 foreach($subalbums[$index] as $sub){
-		
 		  echo "<li class='item drop-shadow round'><a href='"  . $sub['large_image'] . "'><img src='" . $sub['image'] . "'></img>" .  $sub['title']  . "</a> " . $sub['artist'] ." </li>";
 	 
-		  }
-		  
+		  } 
 		echo "</ul>";	    
 	break;
 	
@@ -134,5 +116,14 @@ switch($folderType){
 }
 
 ?>
+        <script type="text/javascript">
+		   $LAB
+		   .script("jquery-1.4.4.min.js").wait()
+		   .script("jquery.tmpl.min.js")
+		   .script("underscore-min.js")
+		   .script("backbone-min.js")
+		   .script("cacheprovider.js").wait()
+		   .script("gallery.js");      
+        </script>
     </body>
 </html>

@@ -1,10 +1,9 @@
 
-## Backbone.js & Underscore Multi-level Client-Side Image Gallery Powered by JSON
+## Backbone.js Gallery - Building Single Page Applications With jQuery's Best Friends
 
-Inspired by the store example by Elf M. Sternberg I decided to try taking this concept a few levels further by creating a multi-level Backbone based image gallery which supports album covers, albums and sub-albums. With three views this project aims to provide a lightweight, clean solution that can be used for personal projects easily.
 
-Bookmarking is supported on all levels and back-button support is currently working across on these across current FF, Safari and Chrome. IE testing results forthcoming. 
 
 ## Compatibility
 
 Compatible with latest Firefox, Safari, Chrome (requires non-local testing), IE9, IE8, Opera 9.6.x, Opera 10.x, Opera 11.
+
