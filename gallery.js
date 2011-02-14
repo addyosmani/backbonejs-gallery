@@ -3,8 +3,9 @@ var cache = new CacheProvider;
 
 
 /**
- * Model of a Photo used to define the items that appear in a PhotoCollection
- * subalbum returns a reference to the current subalbum being viewed via the gallery.
+  *Here we create the model 'Photo' ; used to define individual image items. 'subalbum' returns a 
+  *reference to the current subalbum being viewed via the gallery for use when accessing a Photo item 
+  *through a hash URL We also define a new CacheProvider for use in our Controller later.
  * @type Backbone.Model
  */
 var Photo = Backbone.Model.extend({
@@ -14,7 +15,7 @@ var Photo = Backbone.Model.extend({
 
 
 /**
- * Data collection of Photo items used in index, subalbum and photo views
+ * PhotoCollection: A collection of Photo items used in index, subalbum and photo views
  * @type Backbone.Collection
  */
 var PhotoCollection = Backbone.Collection.extend({
@@ -26,8 +27,10 @@ var PhotoCollection = Backbone.Collection.extend({
 
 
 /**
- * The default view seen when opening up the application for the first time. This
- * contains the first level of images in the JSON store (the level-one albums).
+ * IndexView: The default view seen when opening up the application for the first time. This 
+ * contains the first level of images in the JSON store (the level-one albums). Prior to rendering 
+ * our jQuery templates here we remove any messages or elements displayed in the version where 
+ * JavaScript is disabled.
  * @type Backbone.View
  */
 var IndexView = Backbone.View.extend({
@@ -50,10 +53,9 @@ var IndexView = Backbone.View.extend({
 
 
 /**
- * The subalbum view reached when clicking on a level-one album or browsing
- * to a subalbum bookmark. This contains the images found in the 'subalbum'
- * section of an album entry. Clicking on any of the images shown in a subalbum
- * takes you to the PhotoView of that individual image
+ * SubalbumView: The view reached when clicking on a level-one album or browsing to a subalbum bookmark. 
+ * This contains the images found in the 'subalbum' section of an album entry. Clicking on any of the 
+ * images shown in a subalbum takes you to the PhotoView of that specific image
  * @type Backbone.View
  */
 var SubalbumView = Backbone.View.extend({
@@ -79,7 +81,7 @@ var SubalbumView = Backbone.View.extend({
 
 
 /**
- * The single-photo view for a single image on the third-level of the application.
+ * PhotoView: The single-photo view for a single image on the third-level of the application.
  * This is reached either by clicking on an image at the second/subalbum level or 
  * browsing to a bookmarked photo in a subalbum.
  * @type Backbone.View
@@ -110,10 +112,10 @@ var PhotoView = Backbone.View.extend({
 
 
 /**
- * The controller that defines our main application 'gallery'. Here we handle
- * how routes should be interpreted, the basic initialization of the application
- * with data through an $.ajax call to fetch our JSON store and the creation of 
- * collections and views based on the models defined previously.
+ * Gallery: The controller that defines our main application 'gallery'. Here we handle how 
+ * routes should be interpreted, the basic initialization of the application with data through 
+ * an $.ajax call to fetch our JSON store and the creation of collections and views based on the 
+ * models defined previously.
  * @type Backbone.Controller
  */
 var Gallery = Backbone.Controller.extend({
@@ -166,11 +168,11 @@ var Gallery = Backbone.Controller.extend({
 	
 
 	/**
-	 * Handle rendering basic views of the subalbums. As subalbums are not typically
-	 * traversed in the default initialization, here we create a new PhotoCollection 
-	 * based on indices passed through the UI and an already cached data-set. We then
-	 * create a new SubalbumvView instance and render the subalbums and set the current
-	 * subphotos data-array to contain our subphotos.
+	 * Gallery -> hashsub: Handle URL routing for subalbums. As subalbums aren't traversed 
+	 * in the default initialization of the app, here we create a new PhotoCollection for a 
+	 * particular subalbum based on indices passed through the UI. We then create a new SubalbumView 
+	 * instance, render the subalbums and set the current subphotos array to contain our subalbum Photo 
+	 * items. All of this is cached using the CacheProvider we defined earlier
 	 * @type function
 	 * @param {String} id An ID specific to a particular subalbum based on CIDs
 	 */
@@ -190,10 +192,11 @@ var Gallery = Backbone.Controller.extend({
 	},
 
 	/**
-	 * Handle both direct and indirect attempts to access images within subalbums. This method
-	 * continues from where directphoto leaves off (if called) and checks to see if an existing
-	 * subphotos object exists. If it doesn't, we generate a new PhotoCollection and finally create
-	 * a new PhotoView to display the image that was being queried for. 
+	 * Gallery -> hashphoto: Handle routing for access to specific images within subalbums. This method 
+	 * checks to see if an existing subphotos object exists (ie. if we've already visited the 
+	 * subalbum before). If it doesn't, we generate a new PhotoCollection and finally create 
+	 * a new PhotoView to display the image that was being queried for. As per hashsub, variable/data 
+	 * caching is employed here too
 	 * @type function
 	 * @param {String} num An ID specific to a particular image being accessed
 	 * @param {Integer} id An ID specific to a particular subalbum being accessed

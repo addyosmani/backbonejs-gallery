@@ -1,7 +1,7 @@
 
 ## Backbone.js Gallery - Building Single Page Applications With jQuery's Best Friends
 
-
+A three-level image gallery using Backbone, Underscore, LAB.js and jQuery templating. JSDocs is used for inline documentation and CacheProvider for variable and data caching.
 
 ## Compatibility
 
