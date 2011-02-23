@@ -25,6 +25,13 @@ var PhotoCollection = Backbone.Collection.extend({
     }
 });
 
+function removeFallbacks(){
+  var query = $('.jstest,.gallery');
+        if(query.length){
+          query.remove();
+        }
+}
+
 
 /**
  * IndexView: The default view seen when opening up the application for the first time. This 
@@ -38,7 +45,7 @@ var IndexView = Backbone.View.extend({
     indexTemplate: $("#indexTmpl").template(),
 
     render: function() {
-        $('.jstest,.gallery').remove();
+        removeFallbacks();
         var sg = this;
         
         this.el.fadeOut('fast', function() {
@@ -68,7 +75,7 @@ var SubalbumView = Backbone.View.extend({
 
     render: function() {
         var sg = this;
-
+        removeFallbacks();
         this.el.fadeOut('fast', function() {
             sg.el.empty();
             $.tmpl(sg.indexTemplate, sg.model.toArray()).appendTo(sg.el);
@@ -98,7 +105,7 @@ var PhotoView = Backbone.View.extend({
     
     render: function() {
         var sg = this;
-        
+        removeFallbacks();     
         this.el.fadeOut('fast', function() {
             sg.el.empty();
             $.tmpl(sg.itemTemplate, sg.model).appendTo(sg.el);
